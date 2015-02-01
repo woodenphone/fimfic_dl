@@ -1,0 +1,12 @@
+2015-02-01 16:45:24,476 - DEBUG - Logging started.
+2015-02-01 17:17:14,654 - INFO - goodbye [127.0.0.1]:50488
+2015-02-01 17:17:14,654 - INFO - server has terminated
+2015-02-01 17:29:15,994 - DEBUG - Logging started.
+2015-02-01 17:29:18,022 - INFO - goodbye [127.0.0.1]:55099
+2015-02-01 17:29:18,022 - INFO - server has terminated
+2015-02-01 17:32:56,351 - DEBUG - Logging started.
+2015-02-01 17:32:58,914 - INFO - goodbye [127.0.0.1]:55479
+2015-02-01 17:32:58,914 - INFO - server has terminated
+2015-02-01 17:38:27,874 - DEBUG - Logging started.
+2015-02-01 17:38:54,546 - INFO - goodbye [127.0.0.1]:56043
+2015-02-01 17:38:54,548 - INFO - server has terminated
