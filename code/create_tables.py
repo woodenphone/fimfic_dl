@@ -57,7 +57,6 @@ TABLES['story_metadata'] = (
     ") ENGINE=InnoDB")
 
 
-
 TABLES['chapter_metadata'] = (
     "CREATE TABLE `chapter_metadata` ("
     # Local stuff
@@ -75,7 +74,6 @@ TABLES['chapter_metadata'] = (
     ") ENGINE=InnoDB")
 
 
-
 TABLES['chapter_texts'] = (
     "CREATE TABLE `chapter_texts` ("
     # Local stuff
@@ -89,7 +87,6 @@ TABLES['chapter_texts'] = (
     "  `chapter_text` text NOT NULL,"
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
-
 
 
 TABLES['full_texts'] = (

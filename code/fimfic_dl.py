@@ -14,7 +14,7 @@
 
 
 from utils import *
-
+from fimfic_sql import *
 
 
 
@@ -79,6 +79,7 @@ def save_story(story_id,api_dict,raw_api_json):
     # Find latest version number
 
     # Download full story
+    full_story_html_url =
     # Save full story to file
     # Add full story to DB
 
@@ -101,7 +102,7 @@ def check_story(story_id):
     api_dict = json.loads(raw_api_json)
     # Determine if story has changed since last download
     remote_date_modified = api_dict["story"]["date_modified"]
-    local_date_modified =
+    local_date_modified = find_newest_version(story_id)
     if (remote_date_modified <= local_date_modified):
         logging.info("Local version is up to date, no download needed.")
         return
@@ -111,15 +112,13 @@ def check_story(story_id):
     return
 
 
-
-
-
 def check_range(start_id,finish_id):
     """Process a range of stories"""
+    logging.info("Checking range "+repr(start_id)+" to "+repr(finish_id))
     for story_id in xrange(start_id,finish_id):
         check_story(story_id)
+    logging.info("Finished checking range "+repr(start_id)+" to "+repr(finish_id))
     return
-
 
 
 def main():

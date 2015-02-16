@@ -1,0 +1,90 @@
+2015-02-16 23:02:19,395 - DEBUG - Logging started.
+2015-02-16 23:02:19,401 - DEBUG - Inserting into story_metadata
+2015-02-16 23:02:44,058 - INFO - goodbye [127.0.0.1]:51433
+2015-02-16 23:02:44,058 - INFO - server has terminated
+2015-02-16 23:02:44,382 - DEBUG - Logging started.
+2015-02-16 23:02:44,384 - DEBUG - Inserting into story_metadata
+2015-02-16 23:03:02,362 - INFO - goodbye [127.0.0.1]:51444
+2015-02-16 23:03:02,362 - INFO - server has terminated
+2015-02-16 23:03:02,703 - DEBUG - Logging started.
+2015-02-16 23:03:02,707 - DEBUG - Inserting into story_metadata
+2015-02-16 23:04:43,355 - INFO - goodbye [127.0.0.1]:51455
+2015-02-16 23:04:43,355 - INFO - server has terminated
+2015-02-16 23:04:43,681 - DEBUG - Logging started.
+2015-02-16 23:04:43,686 - DEBUG - Inserting into story_metadata
+2015-02-16 23:04:54,690 - INFO - goodbye [127.0.0.1]:51500
+2015-02-16 23:04:54,690 - INFO - server has terminated
+2015-02-16 23:04:55,526 - DEBUG - Logging started.
+2015-02-16 23:04:55,529 - DEBUG - Inserting into story_metadata
+2015-02-17 01:38:12,216 - INFO - goodbye [127.0.0.1]:51510
+2015-02-17 01:38:12,217 - INFO - server has terminated
+2015-02-17 01:38:13,082 - DEBUG - Logging started.
+2015-02-17 01:38:13,101 - DEBUG - Inserting into story_metadata
+2015-02-17 01:40:50,151 - INFO - goodbye [127.0.0.1]:55557
+2015-02-17 01:40:50,151 - INFO - server has terminated
+2015-02-17 01:40:51,644 - DEBUG - Logging started.
+2015-02-17 01:40:51,663 - DEBUG - Inserting into story_metadata
+2015-02-17 01:43:42,431 - INFO - goodbye [127.0.0.1]:55626
+2015-02-17 01:43:42,433 - INFO - server has terminated
+2015-02-17 01:43:42,759 - DEBUG - Logging started.
+2015-02-17 01:43:42,762 - DEBUG - Inserting into story_metadata
+2015-02-17 01:43:49,095 - INFO - goodbye [127.0.0.1]:55705
+2015-02-17 01:43:49,095 - INFO - server has terminated
+2015-02-17 01:43:49,414 - DEBUG - Logging started.
+2015-02-17 01:43:49,418 - DEBUG - Inserting into story_metadata
+2015-02-17 01:44:51,588 - INFO - goodbye [127.0.0.1]:55712
+2015-02-17 01:44:51,588 - INFO - server has terminated
+2015-02-17 01:44:51,930 - DEBUG - Logging started.
+2015-02-17 01:44:51,934 - DEBUG - Inserting into story_metadata
+2015-02-17 01:45:11,165 - INFO - goodbye [127.0.0.1]:55744
+2015-02-17 01:45:11,165 - INFO - server has terminated
+2015-02-17 01:45:12,030 - DEBUG - Logging started.
+2015-02-17 01:45:12,048 - DEBUG - Inserting into story_metadata
+2015-02-17 02:05:43,997 - INFO - goodbye [127.0.0.1]:55755
+2015-02-17 02:05:43,997 - INFO - server has terminated
+2015-02-17 02:06:14,982 - DEBUG - Logging started.
+2015-02-17 02:06:14,983 - DEBUG - Inserting into story_metadata
+2015-02-17 02:07:11,742 - INFO - goodbye [127.0.0.1]:56275
+2015-02-17 02:07:11,742 - INFO - server has terminated
+2015-02-17 02:07:12,055 - DEBUG - Logging started.
+2015-02-17 02:07:12,059 - DEBUG - Inserting into story_metadata
+2015-02-17 02:07:37,332 - INFO - goodbye [127.0.0.1]:56302
+2015-02-17 02:07:37,332 - INFO - server has terminated
+2015-02-17 02:07:37,653 - DEBUG - Logging started.
+2015-02-17 02:07:37,655 - DEBUG - Inserting into story_metadata
+2015-02-17 02:08:28,023 - INFO - goodbye [127.0.0.1]:56312
+2015-02-17 02:08:28,025 - INFO - server has terminated
+2015-02-17 02:08:28,348 - DEBUG - Logging started.
+2015-02-17 02:08:28,351 - DEBUG - Inserting into story_metadata
+2015-02-17 02:11:04,009 - INFO - goodbye [127.0.0.1]:56333
+2015-02-17 02:11:04,009 - INFO - server has terminated
+2015-02-17 02:11:04,334 - DEBUG - Logging started.
+2015-02-17 02:11:04,338 - DEBUG - Inserting into story_metadata
+2015-02-17 02:13:50,348 - INFO - goodbye [127.0.0.1]:56396
+2015-02-17 02:13:50,348 - INFO - server has terminated
+2015-02-17 02:13:50,676 - DEBUG - Logging started.
+2015-02-17 02:13:50,678 - DEBUG - Inserting into story_metadata
+2015-02-17 02:17:33,766 - INFO - goodbye [127.0.0.1]:56470
+2015-02-17 02:17:33,766 - INFO - server has terminated
+2015-02-17 02:17:34,086 - DEBUG - Logging started.
+2015-02-17 02:17:34,089 - DEBUG - Inserting into story_metadata
+2015-02-17 02:17:49,994 - INFO - goodbye [127.0.0.1]:56589
+2015-02-17 02:17:49,994 - INFO - server has terminated
+2015-02-17 02:17:50,313 - DEBUG - Logging started.
+2015-02-17 02:17:50,316 - DEBUG - Inserting into story_metadata
+2015-02-17 02:44:13,601 - INFO - goodbye [127.0.0.1]:56596
+2015-02-17 02:44:13,602 - INFO - server has terminated
+2015-02-17 02:44:13,927 - DEBUG - Logging started.
+2015-02-17 02:44:13,930 - DEBUG - Inserting into story_metadata
+2015-02-17 02:44:24,483 - INFO - goodbye [127.0.0.1]:57243
+2015-02-17 02:44:24,484 - INFO - server has terminated
+2015-02-17 02:44:32,125 - DEBUG - Logging started.
+2015-02-17 02:44:32,128 - DEBUG - Inserting into story_metadata
+2015-02-17 02:45:47,713 - INFO - goodbye [127.0.0.1]:57256
+2015-02-17 02:45:47,713 - INFO - server has terminated
+2015-02-17 02:45:48,540 - DEBUG - Logging started.
+2015-02-17 02:45:48,545 - DEBUG - Inserting into story_metadata
+2015-02-17 02:48:20,808 - INFO - goodbye [127.0.0.1]:57288
+2015-02-17 02:48:20,808 - INFO - server has terminated
+2015-02-17 02:48:21,125 - DEBUG - Logging started.
+2015-02-17 02:48:21,128 - DEBUG - Inserting into story_metadata
