@@ -74,16 +74,12 @@ def save_file(filenamein,data,force_save=False):
     return
 
 
-
 def read_file(path):
     """grab the contents of a file"""
     f = open(path, "r")
     data = f.read()
     f.close()
     return data
-
-
-
 
 
 def add_http(url):

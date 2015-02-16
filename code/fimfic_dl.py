@@ -13,14 +13,6 @@
 
 
 
-
-
-
-
-
-
-
-
 from utils import *
 
 
@@ -81,8 +73,41 @@ def generate_story_folder_path(root_path,story_id):
     return file_path
 
 
+def save_story(story_id,api_dict,raw_api_json):
+    """Download a story and add it to the DB"""
+    logging.info("Downloading story "+repr(story_id))
+    # Find latest version number
+
+    # Download full story
+    # Save full story to file
+    # Add full story to DB
+
+    # Download chapters
+    # Save chapters to file
+    # Add chapters to DB
+
+    # Save API metadata JSON to file
+    # Add API metadata to DB
+    logging.info("Saved "+repr(story_id))
+    return
+
+
 def check_story(story_id):
     """Process a single story given its ID number."""
+    logging.info("Checking story "+repr(story_id))
+    # Load API page for story
+    api_url = "http://www.fimfiction.net/api/story.php?story="+str(story_id)
+    raw_api_json = get(api_url)
+    api_dict = json.loads(raw_api_json)
+    # Determine if story has changed since last download
+    remote_date_modified = api_dict["story"]["date_modified"]
+    local_date_modified =
+    if (remote_date_modified <= local_date_modified):
+        logging.info("Local version is up to date, no download needed.")
+        return
+    else:
+        # If story has changed or is new, download it and add it to the DB
+        save_story(story_id,api_dict,raw_api_json)
     return
 
 
