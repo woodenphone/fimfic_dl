@@ -62,7 +62,7 @@ def generate_story_folder_path(root_path,story_id):
     ###/###/###/V#/filename
     Millions / Thousands / Ones / V Version_number / filename
     root_path/000/000/001/
-    root_path/999/999/999/V99999/"""
+    root_path/999/999/999/"""
     assert(type(story_id) is int)# Must be integer
     assert(0 <= story_id <= 999999999)# Between zero and 999,999,999
 
