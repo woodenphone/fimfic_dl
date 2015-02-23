@@ -104,18 +104,28 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
     story_path = generate_story_folder_path(root_path,story_id)
     # Try saving "full_image" field
     if "full_image" in api_dict["story"].keys():
+        logging.debug("Saving full_image for "+repr(story_id))
         full_image_url = api_dict["story"]["full_image"]
         full_image = get(full_image_url)
-        full_image_filename = os.path.split(full_image_url)[1]
-        full_image_path = os.path.join(story_path, full_image_filename)
-        save_file(full_image_path,full_image)
+        if full_image:
+            full_image_filename = os.path.split(full_image_url)[1]
+            full_image_path = os.path.join(story_path, full_image_filename)
+            save_file(full_image_path,full_image)
+        else:
+            logging.error("Failed to load "+repr(full_image_url))
+            logging.error(repr(locals()))
     # Try saving "image" field
     if "image" in api_dict["story"].keys():
+        logging.debug("Saving image for "+repr(story_id))
         image_url = api_dict["story"]["image"]
         image = get(image_url)
-        image_filename = os.path.split(image_url)[1]
-        image_path = os.path.join(story_path, image_filename)
-        save_file(image_path,image)
+        if image:
+            image_filename = os.path.split(image_url)[1]
+            image_path = os.path.join(story_path, image_filename)
+            save_file(image_path,image)
+        else:
+            logging.error("Failed to load "+repr(image_url))
+            logging.error(repr(locals()))
     return
 
 
