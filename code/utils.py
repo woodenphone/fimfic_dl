@@ -81,6 +81,7 @@ def save_file(filenamein,data,force_save=False):
             logging.error(repr(locals()))
             continue
     logging.critical("Too many failed write attempts!")
+    logging.critical(repr(locals()))
     raise(err)
 
 

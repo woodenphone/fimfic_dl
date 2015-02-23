@@ -103,14 +103,14 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
     """
     story_path = generate_story_folder_path(root_path,story_id)
     # Try saving "full_image" field
-    if "full_image" in api_dict["story"].keys:
+    if "full_image" in api_dict["story"].keys():
         full_image_url = api_dict["story"]["full_image"]
         full_image = get(full_image_url)
         full_image_filename = os.path.split(full_image_url)[1]
         full_image_path = os.path.join(story_path, full_image_filename)
         save_file(full_image_path,full_image)
     # Try saving "image" field
-    if "image" in api_dict["story"].keys:
+    if "image" in api_dict["story"].keys():
         image_url = api_dict["story"]["image"]
         image = get(image_url)
         image_filename = os.path.split(image_url)[1]
@@ -169,6 +169,9 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
             continue
         # Insert chapter metadata entries
         insert_chapter_metadata(connection,api_dict,story_id,version)
+    # Save images for story if first version
+    if version == 1:
+        save_story_images(connection,root_path,story_id,api_dict,version)
     # Save API metadata JSON to file
     json_filename = str(story_id)+".v"+str(version)+".json"
     json_path = generate_full_path(root_path,story_id,version,json_filename)
