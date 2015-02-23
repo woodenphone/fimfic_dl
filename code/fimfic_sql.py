@@ -33,7 +33,6 @@ def generate_insert_query(table_name,value_names):
     return query
 
 
-
 def insert_json(connection,story_json):
     cursor =  connection.cursor()
     story_api_dict = json.loads(story_json)
@@ -267,17 +266,14 @@ def show_api_structure():
 
 def main():
     setup_logging(log_file_path=os.path.join("debug","fimfic-dl-sql-log.txt"))
-    pass
+
     cnx = mysql.connector.connect(**config.sql_login)
     cursor = cnx.cursor()
-
-
 
     with open("api.json", "rb") as file:
         story_json = file.read()
         story_api_dict = json.loads(story_json)
     insert_story_metadata(cnx,story_api_dict)
-
 
     cnx.close()
 

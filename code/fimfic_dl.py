@@ -82,10 +82,6 @@ def generate_story_folder_path(root_path,story_id):
     return file_path
 
 
-def find_story_id(api_dict):
-    return api_dict["story"]["id"]
-
-
 def check_if_story_exists(api_dict):
     """Given a decoded API json, see if it looks like the story exists"""
     if "error" in api_dict.keys():
