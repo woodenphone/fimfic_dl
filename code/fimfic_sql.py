@@ -20,9 +20,13 @@ def generate_insert_query(table_name,value_names):
     """Generate a SQL insert statement so all the statements can be made in one place
     NEVER LET THIS TOUCH OUTSIDE DATA!"""
     assert len(value_names) > 0
+    value_names_with_backticks = []
+    for value in value_names:
+        assert(type(value) is type(""))
+        value_names_with_backticks.append("`"+value+"`")
     query = (
-    "INSERT INTO `"+table_name+"`  (%s) VALUES (" % (",".join(value_names),)# Values from dict
-    +"%s, "*(len(value_names)-1)#values to insert
+    "INSERT INTO `"+table_name+"` (%s) VALUES (" % (", ".join(value_names_with_backticks),)# Values from dict
+    +"%s, "*(len(value_names_with_backticks)-1)#values to insert
     +"%s);"
     )
     logging.debug(repr(query))
@@ -98,6 +102,36 @@ def insert_story_metadata(connection,api_dict,version):
     fields = story_metadata_values.keys()
     values = story_metadata_values.values()
     query = generate_insert_query(table_name="story_metadata",value_names=fields)
+    logging.debug(repr(query))
+    result = cursor.execute(query, values)
+    return
+
+
+def insert_category_metadata(connection,api_dict,parent_story_id,version):
+    """Insert category data into the DB"""
+    cursor =  connection.cursor()
+    logging.debug(repr(locals()))
+    row_to_insert = {
+    # Local
+    "version":version,
+    "parent_story_id":parent_story_id,
+    # Site
+    "Dark":api_dict["story"]["categories"]["Dark"],
+    "Slice of Life":api_dict["story"]["categories"]["Slice of Life"],
+    "Anthro":api_dict["story"]["categories"]["Anthro"],
+    "Random":api_dict["story"]["categories"]["Random"],
+    "Alternate Universe":api_dict["story"]["categories"]["Alternate Universe"],
+    "Sad":api_dict["story"]["categories"]["Sad"],
+    "Romance":api_dict["story"]["categories"]["Romance"],
+    "Crossover":api_dict["story"]["categories"]["Crossover"],
+    "Adventure":api_dict["story"]["categories"]["Adventure"],
+    "Human":api_dict["story"]["categories"]["Human"],
+    "Comedy":api_dict["story"]["categories"]["Comedy"],
+    "Tragedy":api_dict["story"]["categories"]["Tragedy"],
+    }
+    fields = row_to_insert.keys()
+    values = row_to_insert.values()
+    query = generate_insert_query(table_name="story_categories",value_names=fields)
     logging.debug(repr(query))
     result = cursor.execute(query, values)
     return
@@ -192,10 +226,9 @@ def find_newest_version(connection,story_id):
         row_counter += 1
         version = row[0]
     if row_counter == 0:
-        return None
-    else:
-        assert(type(version) is type(1)) # Check input
-        return version
+        version = None
+    logging.debug("Latest version found: "+repr(version))
+    return version
 
 
 

@@ -155,8 +155,10 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     # Add API metadata to DB
     insert_story_metadata(connection,api_dict,version=1)
     # Add category metadata to DB
-    logging.info("Saved "+repr(story_id))
+    insert_category_metadata(connection,api_dict,story_id,version)
+    # Commit/save new data
     connection.commit()
+    logging.info("Saved "+repr(story_id))
     return
 
 
