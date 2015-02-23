@@ -59,19 +59,29 @@ def setup_logging(log_file_path):
 
 
 def save_file(filenamein,data,force_save=False):
-    if not force_save:
-        if os.path.exists(filenamein):
-            logging.debug("file already exists! "+repr(filenamein))
+    counter = 0
+    while counter <= 10:
+        counter += 1
+        try:
+            if not force_save:
+                if os.path.exists(filenamein):
+                    logging.debug("file already exists! "+repr(filenamein))
+                    return
+            sanitizedpath = filenamein# sanitizepath(filenamein)
+            foldername = os.path.dirname(sanitizedpath)
+            if len(foldername) >= 1:
+                if not os.path.isdir(foldername):
+                    os.makedirs(foldername)
+            file = open(sanitizedpath, "wb")
+            file.write(data)
+            file.close()
             return
-    sanitizedpath = filenamein# sanitizepath(filenamein)
-    foldername = os.path.dirname(sanitizedpath)
-    if len(foldername) >= 1:
-        if not os.path.isdir(foldername):
-            os.makedirs(foldername)
-    file = open(sanitizedpath, "wb")
-    file.write(data)
-    file.close()
-    return
+        except IOError, err:
+            logging.exception(err)
+            logging.error(repr(locals()))
+            continue
+    logging.critical("Too many failed write attempts!")
+    raise(err)
 
 
 def read_file(path):

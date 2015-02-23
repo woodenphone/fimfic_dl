@@ -96,6 +96,30 @@ def check_if_story_exists(api_dict):
         raise ValueError
 
 
+def save_story_images(connection,root_path,story_id,api_dict,version):
+    """Try to save any images associated with a story in the API to the story's base folder
+    Only one version of a story's image will be saved to save bandwidth and disk space.
+    example output path: "download/000/000/001/full_image.jpg"
+    """
+    story_path = generate_story_folder_path(root_path,story_id)
+    # Try saving "full_image" field
+    if "full_image" in api_dict["story"].keys:
+        full_image_url = api_dict["story"]["full_image"]
+        full_image = get(full_image_url)
+        full_image_filename = os.path.split(full_image_url)[1]
+        full_image_path = os.path.join(story_path, full_image_filename)
+        save_file(full_image_path,full_image)
+    # Try saving "image" field
+    if "image" in api_dict["story"].keys:
+        image_url = api_dict["story"]["image"]
+        image = get(image_url)
+        image_filename = os.path.split(image_url)[1]
+        image_path = os.path.join(story_path, image_filename)
+        save_file(image_path,image)
+    return
+
+
+
 def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     """Download a story and add it to the DB"""
     logging.info("Downloading story "+repr(story_id))
