@@ -88,3 +88,69 @@
 2015-02-17 02:48:20,808 - INFO - server has terminated
 2015-02-17 02:48:21,125 - DEBUG - Logging started.
 2015-02-17 02:48:21,128 - DEBUG - Inserting into story_metadata
+2015-02-17 22:13:50,789 - INFO - goodbye [127.0.0.1]:57352
+2015-02-17 22:13:50,789 - INFO - server has terminated
+2015-02-17 22:13:52,259 - DEBUG - Logging started.
+2015-02-17 22:13:52,265 - DEBUG - Inserting into story_metadata
+2015-02-17 22:15:14,687 - INFO - goodbye [127.0.0.1]:54057
+2015-02-17 22:15:14,688 - INFO - server has terminated
+2015-02-17 22:15:15,010 - DEBUG - Logging started.
+2015-02-17 22:15:15,015 - DEBUG - Inserting into story_metadata
+2015-02-17 22:15:42,973 - INFO - goodbye [127.0.0.1]:54092
+2015-02-17 22:15:42,973 - INFO - server has terminated
+2015-02-17 22:15:43,289 - DEBUG - Logging started.
+2015-02-17 22:15:43,292 - DEBUG - Inserting into story_metadata
+2015-02-17 22:16:17,210 - INFO - goodbye [127.0.0.1]:54107
+2015-02-17 22:16:17,211 - INFO - server has terminated
+2015-02-17 22:16:17,532 - DEBUG - Logging started.
+2015-02-17 22:16:17,536 - DEBUG - Inserting into story_metadata
+2015-02-17 22:23:52,124 - INFO - goodbye [127.0.0.1]:54120
+2015-02-17 22:23:52,124 - INFO - server has terminated
+2015-02-17 23:00:16,286 - DEBUG - Logging started.
+2015-02-17 23:00:16,289 - DEBUG - Inserting into story_metadata
+2015-02-17 23:00:20,994 - INFO - goodbye [127.0.0.1]:55189
+2015-02-17 23:00:20,994 - INFO - server has terminated
+2015-02-17 23:04:07,944 - DEBUG - Logging started.
+2015-02-17 23:04:07,947 - DEBUG - Inserting into story_metadata
+2015-02-17 23:04:10,921 - INFO - goodbye [127.0.0.1]:55291
+2015-02-17 23:04:10,921 - INFO - server has terminated
+2015-02-22 00:35:35,903 - DEBUG - Logging started.
+2015-02-22 00:35:35,907 - DEBUG - Inserting into story_metadata
+2015-02-22 00:35:40,635 - INFO - goodbye [127.0.0.1]:64985
+2015-02-22 00:35:40,635 - INFO - server has terminated
+2015-02-22 00:38:35,437 - DEBUG - Logging started.
+2015-02-22 00:38:35,444 - DEBUG - Inserting into story_metadata
+2015-02-22 00:38:57,759 - INFO - goodbye [127.0.0.1]:65147
+2015-02-22 00:38:57,759 - INFO - server has terminated
+2015-02-22 00:38:58,627 - DEBUG - Logging started.
+2015-02-22 00:38:58,644 - DEBUG - Inserting into story_metadata
+2015-02-22 00:39:15,338 - INFO - goodbye [127.0.0.1]:65159
+2015-02-22 00:39:15,338 - INFO - server has terminated
+2015-02-22 00:39:15,661 - DEBUG - Logging started.
+2015-02-22 00:39:15,664 - DEBUG - Inserting into story_metadata
+2015-02-22 00:39:19,112 - INFO - goodbye [127.0.0.1]:65167
+2015-02-22 00:39:19,112 - INFO - server has terminated
+2015-02-22 00:39:40,934 - DEBUG - Logging started.
+2015-02-22 00:39:40,937 - DEBUG - Inserting into story_metadata
+2015-02-22 00:39:44,698 - INFO - goodbye [127.0.0.1]:65182
+2015-02-22 00:39:44,700 - INFO - server has terminated
+2015-02-22 01:52:33,216 - DEBUG - Logging started.
+2015-02-22 01:52:50,904 - INFO - goodbye [127.0.0.1]:52232
+2015-02-22 01:52:50,904 - INFO - server has terminated
+2015-02-23 03:18:16,102 - DEBUG - Logging started.
+2015-02-23 03:18:16,109 - DEBUG - Inserting into story_metadata
+2015-02-23 03:18:17,704 - INFO - goodbye [127.0.0.1]:54293
+2015-02-23 03:18:17,706 - INFO - server has terminated
+2015-02-23 03:42:47,992 - DEBUG - Logging started.
+2015-02-23 03:42:48,013 - DEBUG - Inserting into story_metadata
+2015-02-23 03:42:48,022 - DEBUG - 'INSERT INTO story_metadata (status,total_views,content_rating,description,views,url,title,image,full_image,dislikes,comments,chapter_count,version,author_name,words,content_rating_text,short_description,date_modified,author_id,id,likes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
+2015-02-23 03:43:05,420 - INFO - goodbye [127.0.0.1]:55333
+2015-02-23 03:43:05,420 - INFO - server has terminated
+2015-02-23 03:49:32,204 - DEBUG - Logging started.
+2015-02-23 03:50:50,673 - INFO - goodbye [127.0.0.1]:55594
+2015-02-23 03:50:50,674 - INFO - server has terminated
+2015-02-23 05:09:50,851 - DEBUG - Logging started.
+2015-02-23 05:09:50,857 - DEBUG - Inserting into story_metadata
+2015-02-23 05:09:50,857 - DEBUG - 'INSERT INTO story_metadata (status,total_views,content_rating,description,views,url,title,image,full_image,dislikes,comments,chapter_count,version,author_name,words,content_rating_text,short_description,date_modified,author_id,id,likes) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
+2015-02-23 05:11:15,450 - INFO - goodbye [127.0.0.1]:59115
+2015-02-23 05:11:15,450 - INFO - server has terminated

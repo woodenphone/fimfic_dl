@@ -37,7 +37,7 @@ TABLES['story_metadata'] = (
     "  `views` int NOT NULL,"
     "  `date_modified` int NOT NULL,"
     "  `url` text NOT NULL,"
-    "  `image` text NOT NULL,"
+    "  `image` text,"
     "  `title` text NOT NULL,"
     "  `dislikes` int NOT NULL,"
     "  `comments` int NOT NULL,"
@@ -66,7 +66,7 @@ TABLES['chapter_metadata'] = (
     "  `chapter_number` int NOT NULL,"
     # From site
     "  `id` int NOT NULL,"
-    "  `link` text NOT NULL,"
+    "  `link` text,"
     "  `title` text NOT NULL,"
     "  `views` int NOT NULL,"
     "  `words` int NOT NULL,"
@@ -81,10 +81,10 @@ TABLES['chapter_texts'] = (
     "  `version` int NOT NULL,"
     "  `parent_chapter_id` int NOT NULL,"
     "  `parent_story_id` int NOT NULL,"
-    "  `parent_chapter_id` int NOT NULL,"
     "  `chapter_number` int NOT NULL,"
     # From site
-    "  `chapter_text` text NOT NULL,"
+    "  `chapter_text`  MEDIUMTEXT NOT NULL,"
+    "  `chapter_html`  MEDIUMTEXT NOT NULL,"
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
@@ -96,13 +96,14 @@ TABLES['full_texts'] = (
     "  `version` int NOT NULL,"
     "  `parent_story_id` int NOT NULL,"
     # From site
-    "  `full_story_text` text NOT NULL,"
+    "  `full_story_text` LONGTEXT,"
+    "  `full_story_html` LONGTEXT,"
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
 
 TABLES['story_categories'] = (
-    "CREATE TABLE `chapter_texts` ("
+    "CREATE TABLE `story_categories` ("
     # Local stuff
     "  `primary_key` int NOT NULL AUTO_INCREMENT,"
     "  `version` int NOT NULL,"

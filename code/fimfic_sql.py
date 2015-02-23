@@ -16,24 +16,34 @@ import mysql.connector
 from utils import *
 
 
+def generate_insert_query(table_name,value_names):
+    """Generate a SQL insert statement so all the statements can be made in one place
+    NEVER LET THIS TOUCH OUTSIDE DATA!"""
+    assert len(value_names) > 0
+    query = (
+    "INSERT INTO `"+table_name+"`  (%s) VALUES (" % (",".join(value_names),)# Values from dict
+    +"%s, "*(len(value_names)-1)#values to insert
+    +"%s);"
+    )
+    logging.debug(repr(query))
+    return query
 
-def find_highest_story_version(story_id):
-    find_versions_query = ""
-    return version_number
 
-def insert_json(story_json):
+
+def insert_json(connection,story_json):
+    cursor =  connection.cursor()
     story_api_dict = json.loads(story_json)
-    values ={
-    "author_id":"",
+    values = {
+    "author_id":"",#1
     "author_name":"",
     "categories":"",
     "chapters":"",
-    "comments":"",
+    "comments":"",#5
     "content_rating":"",
     "content_rating_text":"",
     "date_modified":"",
     "description":"",
-    "dislikes":"",
+    "dislikes":"",#10
     "full_image":"",
     "story_id":"",
     "image":"",
@@ -43,40 +53,35 @@ def insert_json(story_json):
     "title":"",
     "total_vievs":"",
     "url":"",
-    "views":"",
+    "views":"",#20
     "words":"",
     "version_number":"",
-    "folder_path":"",
+    "folder_path":"",#23
     }
-
-    fields = values.keys()
+    fields=values.keys()
     values = values.values()
-
-    cursor.execute(
-    "INSERT INTO table (%s) VALUES (%%s);" % (",".join(fields)),
-    *values
-    )
-
+    query = generate_insert_query(table_name="chapter_metadata",value_names=fields)
+    logging.debug(repr(query))
+    result = cursor.execute(query,values)
+    return
 
 
-
-
-
-def insert_story_metadata(api_dict,version=1):
+def insert_story_metadata(connection,api_dict,version):
+    assert(type(version) is type(1)) # Check input
+    cursor =  connection.cursor()
     logging.debug("Inserting into story_metadata")
     story_dict = api_dict["story"]
     # Table: story_metadata
-
     story_metadata_values = {
     "version":version,
     "status":story_dict["status"],#1
     "total_views":story_dict["total_views"],
-    "full_image":story_dict["full_image"],
+    "full_image":(story_dict["full_image"] if ("full_image" in story_dict.keys()) else None),
     "description":story_dict["description"],
     "views":story_dict["views"],#5
     "date_modified":story_dict["date_modified"],
     "url":story_dict["url"],
-    "image":story_dict["image"],
+    "image":(story_dict["image"] if ("image" in story_dict.keys()) else None),
     "title":story_dict["title"],
     "dislikes":story_dict["dislikes"],# 10
     "comments":story_dict["comments"],
@@ -90,42 +95,19 @@ def insert_story_metadata(api_dict,version=1):
     "id":story_dict["id"],
     "likes":story_dict["likes"],# 20
     }
-
     fields = story_metadata_values.keys()
     values = story_metadata_values.values()
-#    query = "INSERT INTO story_metadata (%s) VALUES (%%s);" % (",".join(fields))
-    query = ("INSERT INTO story_metadata (%s)"" VALUES ("
-    "%%s, "# 1
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "# 5
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "# 10
-    "%%s, "# 11
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "# 15
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "
-    "%%s, "# 20
-    "%%s"# 21
-    ");"
-    % (",".join(fields))
-    )
-    print repr(query)
-    cursor.execute(query, values)
-    cnx.commit()
+    query = generate_insert_query(table_name="story_metadata",value_names=fields)
+    logging.debug(repr(query))
+    result = cursor.execute(query, values)
     return
 
 
-def insert_chapter_metadata(api_dict,parent_story_id,version=1):
+def insert_chapter_metadata(connection,api_dict,parent_story_id,version):
+    """Insert the metadata for a chapter into the DB"""
+    assert(type(version) is type(1)) # Check input
+    assert(type(parent_story_id) is type(1))
+    cursor =  connection.cursor()
     logging.debug("Inserting into chapter_metadata")
     story_dict = api_dict["story"]
     chapters_list = story_dict["chapters"]
@@ -133,55 +115,111 @@ def insert_chapter_metadata(api_dict,parent_story_id,version=1):
     chapter_number_counter = 0
     for chapter_dict in chapters_list:
         chapter_number_counter += 1
-
         chapter_metadata_values = {
         # Local stuff
-        "version":version,
+        "version":version,#1
         "parent_story_id":parent_story_id,
         "chapter_number":chapter_number_counter,
         # From API
         "id":story_dict["id"],
-        "link":story_dict["link"],
-        "title":story_dict["title"],
-        "views":story_dict["views"],
-        "words":story_dict["words"],
+        # Ternary shit because API sometimes omits fields
+        "link":(story_dict["link"] if ("link" in story_dict.keys()) else None),
+        "title":(story_dict["title"] if ("title" in story_dict.keys()) else None),
+        "views":(story_dict["views"] if ("views" in story_dict.keys()) else None),
+        "words":(story_dict["words"] if ("words" in story_dict.keys()) else None),#8
         }
-
         fields = chapter_metadata_values.keys()
         values = chapter_metadata_values.values()
-        cursor.execute(
-        "INSERT INTO table (%s) VALUES (%%s);" % (",".join(fields),),
-        *values
-        )
+        query = generate_insert_query(table_name="chapter_metadata",value_names=fields)
+        logging.debug(repr(query))
+        result = cursor.execute(query,values)
+        continue
     return
 
 
-
-def find_story_id(api_dict):
-    return api_dict["story"]["id"]
-
-
-def find_newest_version(story_id):
-    logging.debug("Finding latest version number for"+repr(story_id))
-    # Find highest in each table
-    tables_and_id_fields = {
-    "story_metadata":"id",
-    "chapter_metadata":"parent_story_id",
-    "chapter_texts":"parent_story_id",
-    "full_texts":"parent_story_id",
-    "story_categories":"parent_story_id",
+def insert_chapter_text(connection,parent_story_id,chapter_id,chapter_number,version,html=None,txt=None,epub=None):
+    """Insert the text of a chapter into the DB"""
+    assert(type(parent_story_id) is type(1)) # Check input
+    assert(type(chapter_id) is type(1))
+    assert(type(chapter_number) is type(1))
+    assert(type(version) is type(1))
+    cursor =  connection.cursor()
+    chapter_to_insert = {
+    "version":version,#1
+    "parent_chapter_id":chapter_id,
+    "parent_story_id":parent_story_id,
+    "chapter_number":chapter_number,
+    "chapter_text":txt,#5
+    "chapter_html":html,#6
     }
-    for table_name in tables_and_id_fields:
-        query = (
-        "SELECT * FROM story_metadata WHERE id = %s ORDER BY version LIMIT 1"
-        )
-        cursor.execute(query, (story_id))
-    # Return highest seen
-    return 0# latest_version_number
+    fields = chapter_to_insert.keys()
+    values = chapter_to_insert.values()
+    query = generate_insert_query(table_name="chapter_texts",value_names=fields)
+    logging.debug(repr(query))
+    result = cursor.execute(query,values)
+    return
+
+
+def insert_full_text(connection,parent_story_id,version,full_story_text=None,full_story_html=None):
+    """Insert the full text for a story into the DB"""
+    assert(type(parent_story_id) is type(1)) # Check input
+    cursor =  connection.cursor()
+    row_to_insert = {
+    "parent_story_id":parent_story_id,
+    "version":version,
+    "full_story_text":full_story_text,
+    "full_story_html":full_story_html,
+    }
+    fields = row_to_insert.keys()
+    values = row_to_insert.values()
+    query = generate_insert_query(table_name="full_texts",value_names=fields)
+    result = cursor.execute(query,values)
+    return
+
+
+def find_newest_version(connection,story_id):
+    """Find the highest version number associated with a story_id"""
+    assert(type(story_id) is type(1)) # Check input
+    cursor =  connection.cursor()
+    logging.debug("Finding latest version number for"+repr(story_id))
+    query = (
+    "SELECT version FROM (story_metadata) WHERE id = %s ORDER BY version LIMIT 1"
+    )
+    logging.debug(repr(query))
+    cursor.execute(query, (int(story_id),))
+    row_counter = 0
+    for row in cursor:
+        row_counter += 1
+        version = row[0]
+    if row_counter == 0:
+        return None
+    else:
+        assert(type(version) is type(1)) # Check input
+        return version
 
 
 
-
+def lookup_date(connection,story_id,version):
+    """Look up and return the unix time date stamp of version of a story
+    return None if no version found"""
+    assert(type(story_id) is type(1)) # Check input
+    assert(type(version) is type(1))
+    cursor =  connection.cursor()
+    query = ("SELECT date_modified FROM story_metadata "
+         "WHERE id = %s AND version = %s")
+    logging.debug(repr(query))
+    result = cursor.execute(query, (story_id, version))
+    row_counter = 0
+    for row in cursor:
+        row_counter += 1
+        date_modified = row[0]
+        print repr(row)
+    if row_counter == 0:
+        logging.debug("No date associated with ID/Version combination")
+        return None
+    else:
+        assert(type(date_modified) is type(1)) # Check output
+        return date_modified
 
 
 def show_api_structure():
@@ -197,22 +235,19 @@ def show_api_structure():
 def main():
     setup_logging(log_file_path=os.path.join("debug","fimfic-dl-sql-log.txt"))
     pass
+    cnx = mysql.connector.connect(**config.sql_login)
+    cursor = cnx.cursor()
+
+
+
+    with open("api.json", "rb") as file:
+        story_json = file.read()
+        story_api_dict = json.loads(story_json)
+    insert_story_metadata(cnx,story_api_dict)
+
+
+    cnx.close()
 
 if __name__ == '__main__':
     main()
 
-
-
-
-cnx = mysql.connector.connect(**config.sql_login)
-cursor = cnx.cursor()
-
-
-
-with open("api.json", "rb") as file:
-    story_json = file.read()
-    story_api_dict = json.loads(story_json)
-insert_story_metadata(story_api_dict)
-
-
-cnx.close()
