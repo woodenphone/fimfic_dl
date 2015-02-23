@@ -29,7 +29,7 @@ def generate_insert_query(table_name,value_names):
     +"%s, "*(len(value_names_with_backticks)-1)#values to insert
     +"%s);"
     )
-    logging.debug(repr(query))
+    #logging.debug(repr(query))
     return query
 
 
@@ -109,7 +109,6 @@ def insert_story_metadata(connection,api_dict,version):
 def insert_category_metadata(connection,api_dict,parent_story_id,version):
     """Insert category data into the DB"""
     cursor =  connection.cursor()
-    logging.debug(repr(locals()))
     row_to_insert = {
     # Local
     "version":version,

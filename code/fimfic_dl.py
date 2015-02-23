@@ -146,7 +146,7 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
         # Insert chapter metadata entries
         insert_chapter_metadata(connection,api_dict,story_id,version)
     # Save API metadata JSON to file
-    json_filename = str(story_id)+".json"
+    json_filename = str(story_id)+".v"+str(version)+".json"
     json_path = generate_full_path(root_path,story_id,version,json_filename)
     # Add API metadata to DB
     insert_story_metadata(connection,api_dict,version=1)
@@ -179,7 +179,7 @@ def check_story(connection,root_path,story_id):
         local_date_modified = lookup_date(connection,story_id,local_latest_version_number)
         if local_date_modified is None:
             local_date_modified = 0
-        if (remote_date_modified < local_date_modified):
+        if (remote_date_modified <= local_date_modified):
             logging.info("Local version is up to date, no download needed.")
             return
     # If story has changed or is new, download it and add it to the DB

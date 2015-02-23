@@ -32,7 +32,7 @@ TABLES['story_metadata'] = (
     # From site
     "  `status` text NOT NULL,"
     "  `total_views` int NOT NULL,"
-    "  `full_image` text NOT NULL,"
+    "  `full_image` text,"
     "  `description` text NOT NULL,"
     "  `views` int NOT NULL,"
     "  `date_modified` int NOT NULL,"
@@ -125,8 +125,20 @@ TABLES['story_categories'] = (
     ") ENGINE=InnoDB")
 
 
-cnx = mysql.connector.connect(**config.sql_login)
-cursor = cnx.cursor()
+
+
+def setup_max_size(connection):
+    cursor =  connection.cursor()
+    query = (
+    "set global net_buffer_length=1000000;"
+    "set global max_allowed_packet=1000000000;"
+    )
+    result = cursor.execute(query)
+    return
+
+
+
+
 
 def create_database(cursor):
     try:
@@ -136,33 +148,7 @@ def create_database(cursor):
         print("Failed creating database: {}".format(err))
         exit(1)
 
-try:
-    cnx.database = DB_NAME
-except mysql.connector.Error as err:
-    if err.errno == errorcode.ER_BAD_DB_ERROR:
-        create_database(cursor)
-        cnx.database = DB_NAME
-    else:
-        print(err)
-        exit(1)
 
-
-
-
-
-for name, ddl in TABLES.iteritems():
-    try:
-        print("Creating table {}: ".format(name), end='')
-        cursor.execute(ddl)
-    except mysql.connector.Error as err:
-        if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-            print("already exists.")
-        print(err.msg)
-    else:
-        print("OK")
-
-cursor.close()
-cnx.close()
 
 
 
@@ -175,7 +161,35 @@ cnx.close()
 
 
 def main():
-    pass
+    cnx = mysql.connector.connect(**config.sql_login)
+    cursor = cnx.cursor()
+    try:
+        cnx.database = DB_NAME
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_BAD_DB_ERROR:
+            create_database(cursor)
+            cnx.database = DB_NAME
+        else:
+            print(err)
+            exit(1)
+
+
+
+    for name, ddl in TABLES.iteritems():
+        try:
+            print("Creating table {}: ".format(name), end='')
+            cursor.execute(ddl)
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("already exists.")
+            print(err.msg)
+        else:
+            print("OK")
+
+    cursor.close()
+    setup_max_size(cnx)
+    cnx.close()
+
 
 if __name__ == '__main__':
     main()
