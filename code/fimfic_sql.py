@@ -18,7 +18,9 @@ from utils import *
 
 def generate_insert_query(table_name,value_names):
     """Generate a SQL insert statement so all the statements can be made in one place
-    NEVER LET THIS TOUCH OUTSIDE DATA!"""
+    NEVER LET THIS TOUCH OUTSIDE DATA!
+    'INSERT INTO <TABLE_NAME> (<VALUE_NAME_1>, <VALUE_NAME_2>,...) %s, %s, ...);'
+    """
     assert len(value_names) > 0
     value_names_with_backticks = []
     for value in value_names:
@@ -34,6 +36,7 @@ def generate_insert_query(table_name,value_names):
 
 
 def insert_json(connection,story_json):
+    """Used for testing during development?"""
     cursor =  connection.cursor()
     story_api_dict = json.loads(story_json)
     values = {

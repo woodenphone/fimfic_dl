@@ -24,11 +24,12 @@ import config# Settings
 DB_NAME = config.sql_login["database"]
 
 TABLES = {}
+# The metadata associated with a story, as given by the API page for a story
 TABLES['story_metadata'] = (
     "CREATE TABLE `story_metadata` ("
     # Local stuff
-    "  `primary_key` int NOT NULL AUTO_INCREMENT,"
-    "  `version` int NOT NULL,"
+    "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
+    "  `version` int NOT NULL,"# The version of this story this row is associated with
     # From site
     "  `status` text NOT NULL,"
     "  `total_views` int NOT NULL,"
@@ -45,27 +46,27 @@ TABLES['story_metadata'] = (
     "  `chapter_count` int NOT NULL,"
     # chapters [??]
     # author {name (string),id (int)}
-    "  `author_name` text NOT NULL,"
+    "  `author_name` varchar(64) NOT NULL,"# [19:17] <&twkr> author_name is varchar(64) on fimfiction.
     "  `author_id` int NOT NULL,"
     "  `words` int NOT NULL,"
     "  `content_rating_text` text NOT NULL,"
     "  `short_description` text NOT NULL,"
-    "  `id` int NOT NULL,"
+    "  `id` int NOT NULL,"# id is name used in API, referred to as story_id elsewhere to avoid confusion
     # categories {??}
     "  `likes` int NOT NULL,"
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
-
+# The metadata associated with a chapter, as given by the API page for a story
 TABLES['chapter_metadata'] = (
     "CREATE TABLE `chapter_metadata` ("
     # Local stuff
-    "  `primary_key` int NOT NULL AUTO_INCREMENT,"
-    "  `version` int NOT NULL,"
-    "  `parent_story_id` int NOT NULL,"
-    "  `chapter_number` int NOT NULL,"
+    "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
+    "  `version` int NOT NULL,"# The version of this story this row is associated with
+    "  `parent_story_id` int NOT NULL,"# The site-assigned ID for a story
+    "  `chapter_number` int NOT NULL,"# Determined based on order chapters appear in API
     # From site
-    "  `id` int NOT NULL,"
+    "  `id` int NOT NULL,"# id is name used in API, referred to as story_id elsewhere to avoid confusion
     "  `link` text,"
     "  `title` text NOT NULL,"
     "  `views` int NOT NULL,"
@@ -73,41 +74,41 @@ TABLES['chapter_metadata'] = (
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
-
+# The text for an individual chapter, as given bu the chapter download links
 TABLES['chapter_texts'] = (
     "CREATE TABLE `chapter_texts` ("
     # Local stuff
-    "  `primary_key` int NOT NULL AUTO_INCREMENT,"
-    "  `version` int NOT NULL,"
+    "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
+    "  `version` int NOT NULL,"# The version of this story this row is associated with
     "  `parent_chapter_id` int NOT NULL,"
     "  `parent_story_id` int NOT NULL,"
     "  `chapter_number` int NOT NULL,"
     # From site
-    "  `chapter_text`  MEDIUMTEXT NOT NULL,"
-    "  `chapter_html`  MEDIUMTEXT NOT NULL,"
+    "  `chapter_text`  MEDIUMTEXT NOT NULL,"# Was told by twkr that the site used MEDIUMTEXT for chapters
+    "  `chapter_html`  MEDIUMTEXT NOT NULL,"# Was told by twkr that the site used MEDIUMTEXT for chapters
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
-
+# The full text of a story, as given by the full story download links
 TABLES['full_texts'] = (
     "CREATE TABLE `full_texts` ("
     # Local stuff
-    "  `primary_key` int NOT NULL AUTO_INCREMENT,"
-    "  `version` int NOT NULL,"
-    "  `parent_story_id` int NOT NULL,"
+    "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
+    "  `version` int NOT NULL,"# The version of this story this row is associated with
+    "  `parent_story_id` int NOT NULL,"# The site-assigned ID for a story
     # From site
-    "  `full_story_text` LONGTEXT,"
-    "  `full_story_html` LONGTEXT,"
+    "  `full_story_text` LONGTEXT,"# Was told by twkr that the site used MEDIUMTEXT for chapters, so use next size up
+    "  `full_story_html` LONGTEXT,"# Was told by twkr that the site used MEDIUMTEXT for chapters, so use next size up
     "  PRIMARY KEY (`primary_key`)"
     ") ENGINE=InnoDB")
 
-
+# Category information for each story, as given by the API
 TABLES['story_categories'] = (
     "CREATE TABLE `story_categories` ("
     # Local stuff
-    "  `primary_key` int NOT NULL AUTO_INCREMENT,"
-    "  `version` int NOT NULL,"
-    "  `parent_story_id` int NOT NULL,"
+    "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
+    "  `version` int NOT NULL,"# The version of this story this row is associated with
+    "  `parent_story_id` int NOT NULL,"# The site-assigned ID for a story
     # From site
     "  `Dark` bool,"
     "  `Slice of Life` bool,"

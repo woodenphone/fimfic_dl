@@ -242,16 +242,21 @@ def main():
         global cj
         cj = cookielib.LWPCookieJar()
         setup_browser(cj)
+        # Setup DB connection
         connection = mysql.connector.connect(**config.sql_login)
-        root_path = "download"
-        check_story(connection,root_path,104188)
 
-        check_range(connection,root_path,start_id=350,finish_id=1000)
+        # check_story(connection,root_path="download",104188) # For testing individual stories in debugging
+        # check_range(connection,root_path="download",start_id=1,finish_id=10) # For testing ranges in debugging
+
+        # Run over a range
+        if config.process_range:
+            check_range(connection,config.root_path,config.start_id,config.finish_id)
+        logging.info("Finished, exiting.")
         return
-    except Exception, e:
+
+    except Exception, e:# Log fatal exceptions
         logging.critical("Unhandled exception!")
         logging.exception(e)
-    logging.info("Finished, exiting.")
     return
 
 
