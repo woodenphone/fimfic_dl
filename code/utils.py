@@ -59,6 +59,7 @@ def setup_logging(log_file_path):
 
 
 def save_file(filenamein,data,force_save=False):
+    assert_is_string(filenamein)
     counter = 0
     while counter <= 10:
         counter += 1
@@ -87,6 +88,7 @@ def save_file(filenamein,data,force_save=False):
 
 def read_file(path):
     """grab the contents of a file"""
+    assert_is_string(path)
     f = open(path, "r")
     data = f.read()
     f.close()
