@@ -108,7 +108,8 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
         full_image_url = api_dict["story"]["full_image"]
         full_image = get(full_image_url)
         if full_image:
-            full_image_filename = os.path.split(full_image_url)[1]
+            cropped_full_image_url = full_image_url.split("?")[0]# Remove after ?
+            full_image_filename = os.path.split(cropped_full_image_url)[1]
             full_image_path = os.path.join(story_path, full_image_filename)
             save_file(full_image_path,full_image)
         else:
@@ -120,7 +121,8 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
         image_url = api_dict["story"]["image"]
         image = get(image_url)
         if image:
-            image_filename = os.path.split(image_url)[1]
+            cropped_image_url = image_url.split("?")[0]# Remove after ?
+            image_filename = os.path.split(cropped_image_url)[1]
             image_path = os.path.join(story_path, image_filename)
             save_file(image_path,image)
         else:
@@ -244,7 +246,7 @@ def main():
         root_path = "download"
         check_story(connection,root_path,104188)
 
-        check_range(connection,root_path,start_id=9,finish_id=1000)
+        check_range(connection,root_path,start_id=350,finish_id=1000)
         return
     except Exception, e:
         logging.critical("Unhandled exception!")
