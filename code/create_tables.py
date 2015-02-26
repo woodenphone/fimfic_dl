@@ -188,7 +188,7 @@ def main():
             print("OK")
 
     cursor.close()
-    setup_max_size(cnx)
+    #setup_max_size(cnx)
     cnx.close()
 
 
