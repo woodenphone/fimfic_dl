@@ -69,6 +69,7 @@ def insert_json(connection,story_json):
     query = generate_insert_query(table_name="chapter_metadata",value_names=fields)
     logging.debug(repr(query))
     result = cursor.execute(query,values)
+    cursor.close()
     return
 
 
@@ -106,6 +107,7 @@ def insert_story_metadata(connection,api_dict,version):
     query = generate_insert_query(table_name="story_metadata",value_names=fields)
     logging.debug(repr(query))
     result = cursor.execute(query, values)
+    cursor.close()
     return
 
 
@@ -135,6 +137,7 @@ def insert_category_metadata(connection,api_dict,parent_story_id,version):
     query = generate_insert_query(table_name="story_categories",value_names=fields)
     logging.debug(repr(query))
     result = cursor.execute(query, values)
+    cursor.close()
     return
 
 
@@ -169,6 +172,7 @@ def insert_chapter_metadata(connection,api_dict,parent_story_id,version):
         logging.debug(repr(query))
         result = cursor.execute(query,values)
         continue
+    cursor.close()
     return
 
 
@@ -192,6 +196,7 @@ def insert_chapter_text(connection,parent_story_id,chapter_id,chapter_number,ver
     query = generate_insert_query(table_name="chapter_texts",value_names=fields)
     logging.debug(repr(query))
     result = cursor.execute(query,values)
+    cursor.close()
     return
 
 
@@ -209,6 +214,7 @@ def insert_full_text(connection,parent_story_id,version,full_story_text=None,ful
     values = row_to_insert.values()
     query = generate_insert_query(table_name="full_texts",value_names=fields)
     result = cursor.execute(query,values)
+    cursor.close()
     return
 
 
@@ -229,6 +235,7 @@ def find_newest_version(connection,story_id):
     if row_counter == 0:
         version = None
     logging.debug("Latest version found: "+repr(version))
+    cursor.close()
     return version
 
 
@@ -250,10 +257,9 @@ def lookup_date(connection,story_id,version):
         print repr(row)
     if row_counter == 0:
         logging.debug("No date associated with ID/Version combination")
-        return None
-    else:
-        assert(type(date_modified) is type(1)) # Check output
-        return date_modified
+        date_modified = None
+    cursor.close()
+    return date_modified
 
 
 def show_api_structure():
@@ -271,6 +277,7 @@ def main():
 
     cnx = mysql.connector.connect(**config.sql_login)
     cursor = cnx.cursor()
+    cursor.close()
 
     with open("api.json", "rb") as file:
         story_json = file.read()
