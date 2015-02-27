@@ -30,6 +30,7 @@ TABLES['story_metadata'] = (
     # Local stuff
     "  `primary_key` int NOT NULL AUTO_INCREMENT,"# Is used only as primary key
     "  `version` int NOT NULL,"# The version of this story this row is associated with
+    "  `date_saved` int NOT NULL,"# The unix time the story was saved
     # From site
     "  `status` text NOT NULL,"
     "  `total_views` int NOT NULL,"
@@ -65,6 +66,7 @@ TABLES['chapter_metadata'] = (
     "  `version` int NOT NULL,"# The version of this story this row is associated with
     "  `parent_story_id` int NOT NULL,"# The site-assigned ID for a story
     "  `chapter_number` int NOT NULL,"# Determined based on order chapters appear in API
+    "  `date_saved` int NOT NULL,"# The unix time the story was saved
     # From site
     "  `id` int NOT NULL,"# id is name used in API, referred to as story_id elsewhere to avoid confusion
     "  `link` text,"

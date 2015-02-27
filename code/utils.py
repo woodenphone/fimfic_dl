@@ -238,6 +238,14 @@ def delay(basetime,upperrandom=0):
     #logging.debug("pausing for "+repr(sleeptime)+" ...")
     time.sleep(sleeptime)
 
+
+def get_current_unix_time():
+    """Return the current unix time as an integer"""
+    # https://timanovsky.wordpress.com/2009/04/09/get-unix-timestamp-in-java-python-erlang/
+    timestamp = int(time.time())
+    return timestamp
+
+
 def main():
     pass
 

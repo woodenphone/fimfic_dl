@@ -80,27 +80,30 @@ def insert_story_metadata(connection,api_dict,version):
     story_dict = api_dict["story"]
     # Table: story_metadata
     story_metadata_values = {
+    # Local values
     "version":version,
-    "status":story_dict["status"],#1
+    "date_saved":get_current_unix_time(),
+    # Remote values from API
+    "status":story_dict["status"],
     "total_views":story_dict["total_views"],
     "full_image":(story_dict["full_image"] if ("full_image" in story_dict.keys()) else None),
     "description":story_dict["description"],
-    "views":story_dict["views"],#5
+    "views":story_dict["views"],
     "date_modified":story_dict["date_modified"],
     "url":story_dict["url"],
     "image":(story_dict["image"] if ("image" in story_dict.keys()) else None),
     "title":story_dict["title"],
-    "dislikes":story_dict["dislikes"],# 10
+    "dislikes":story_dict["dislikes"],
     "comments":story_dict["comments"],
     "content_rating":story_dict["content_rating"],
     "chapter_count":story_dict["chapter_count"],
     "author_name":story_dict["author"]["name"],
-    "author_id":story_dict["author"]["id"],# 15
+    "author_id":story_dict["author"]["id"],
     "words":story_dict["words"],
     "content_rating_text":story_dict["content_rating_text"],
     "short_description":story_dict["short_description"],
     "id":story_dict["id"],
-    "likes":story_dict["likes"],# 20
+    "likes":story_dict["likes"],
     }
     fields = story_metadata_values.keys()
     values = story_metadata_values.values()
@@ -282,7 +285,7 @@ def main():
     with open("api.json", "rb") as file:
         story_json = file.read()
         story_api_dict = json.loads(story_json)
-    insert_story_metadata(cnx,story_api_dict)
+    insert_story_metadata(cnx,story_api_dict,version=1)
 
     cnx.close()
 
