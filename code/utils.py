@@ -20,16 +20,12 @@ import logging
 import urllib2
 import httplib
 import random
-import glob
-import ConfigParser
 import HTMLParser
 import json
 import shutil
 import pickle
 import socket
-import hashlib
 import string
-import argparse
 
 
 def setup_logging(log_file_path):

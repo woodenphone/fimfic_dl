@@ -252,6 +252,7 @@ def main():
         if config.process_range:
             check_range(connection,config.root_path,config.start_id,config.finish_id)
         logging.info("Finished, exiting.")
+        connection.close()
         return
 
     except Exception, e:# Log fatal exceptions

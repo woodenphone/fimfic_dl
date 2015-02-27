@@ -74,7 +74,7 @@ def insert_json(connection,story_json):
 
 def insert_story_metadata(connection,api_dict,version):
     assert(type(version) is type(1)) # Check input
-    cursor =  connection.cursor()
+    cursor = connection.cursor()
     logging.debug("Inserting into story_metadata")
     story_dict = api_dict["story"]
     # Table: story_metadata
