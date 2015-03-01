@@ -1,1 +1,1 @@
-"fimfic_dl.py" "python -m memory_profiler"
+"fimfic_dl.py" > memtest.txt

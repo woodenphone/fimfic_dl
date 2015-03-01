@@ -131,7 +131,7 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
     return
 
 
-
+@profile
 def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     """Download a story and add it to the DB"""
     logging.info("Downloading story "+repr(story_id))
@@ -196,7 +196,7 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     logging.info("Saved "+repr(story_id))
     return
 
-
+@profile
 def check_story(connection,root_path,story_id):
     """Process a single story given its ID number."""
     logging.info("Checking story "+repr(story_id))
