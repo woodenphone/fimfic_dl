@@ -29,7 +29,7 @@ sql_login = {
 # Run parameters
 # Check range
 process_range = True# Should we run over a specified range? (BOOLEAN)
-start_id = 1# ID of range start (INT)
+start_id = 301# ID of range start (INT)
 finish_id = 10000# ID of range end (INT)
 
 

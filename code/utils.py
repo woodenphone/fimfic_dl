@@ -28,6 +28,7 @@ import socket
 import string
 
 
+
 def setup_logging(log_file_path):
     # Setup logging (Before running any other code)
     # http://inventwithpython.com/blog/2012/04/06/stop-using-print-for-debugging-a-5-minute-quickstart-guide-to-pythons-logging-module/
@@ -113,6 +114,21 @@ def deescape(html):
     # http://stackoverflow.com/questions/2360598/how-do-i-unescape-html-entities-in-a-string-in-python-3-1
     deescaped_string = HTMLParser.HTMLParser().unescape(html)
     return deescaped_string
+
+
+
+
+
+##def get(url):
+##    """Simpler url getter"""
+##    assert_is_string(url)
+##    deescaped_url = deescape(url)
+##    url_with_protocol = add_http(deescaped_url)
+##    response = urllib2.urlopen(url_with_protocol)
+##    html = response.read()
+##    return html
+
+
 
 
 def get(url):

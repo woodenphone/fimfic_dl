@@ -9,7 +9,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-
+from memory_profiler import profile
 
 
 
@@ -197,9 +197,8 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     return
 
 
-def check_story(connection,cj,root_path,story_id):
+def check_story(connection,root_path,story_id):
     """Process a single story given its ID number."""
-    setup_browser(cj)
     logging.info("Checking story "+repr(story_id))
     # Load API page for story
     api_url = "http://www.fimfiction.net/api/story.php?story="+str(story_id)
@@ -226,12 +225,12 @@ def check_story(connection,cj,root_path,story_id):
     save_story(connection,root_path,story_id,api_dict,raw_api_json,new_version_number)
     return
 
-
-def check_range(connection,cj,root_path,start_id,finish_id):
+@profile
+def check_range(connection,root_path,start_id,finish_id):
     """Process a range of stories"""
     logging.info("Checking range "+repr(start_id)+" to "+repr(finish_id))
     for story_id in xrange(start_id,finish_id):
-        check_story(connection,cj,root_path,story_id)
+        check_story(connection,root_path,story_id)
     logging.info("Finished checking range "+repr(start_id)+" to "+repr(finish_id))
     return
 
@@ -251,7 +250,7 @@ def main():
 
         # Run over a range
         if config.process_range:
-            check_range(connection,cj,config.root_path,config.start_id,config.finish_id)
+            check_range(connection,config.root_path,config.start_id,config.finish_id)
         logging.info("Finished, exiting.")
         connection.close()
         return
