@@ -9,12 +9,11 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-from memory_profiler import profile
+from memory_profiler import profile# Memory debug
 
 
-
-from utils import *
-from fimfic_sql import *
+from utils import *# General utility functions
+from fimfic_sql import *# SQL functions
 
 
 def generate_story_filename(date_modified,story_id,version,chapter_number=None,ext="htm"):
@@ -239,9 +238,9 @@ def main():
     try:
         setup_logging(log_file_path=os.path.join("debug","fimfic-dl-log.txt"))
         # Setup browser
-        global cj
-        cj = cookielib.LWPCookieJar()
-        setup_browser(cj)
+        #global cj
+        #cj = cookielib.LWPCookieJar()
+        #setup_browser(cj)
         # Setup DB connection
         connection = mysql.connector.connect(**config.sql_login)
 

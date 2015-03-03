@@ -165,7 +165,7 @@ def getwithinfo(url):
             logging.debug( "Attempt "+repr(attemptcount)+" for URL: "+repr(url) )
         try:
             save_file(os.path.join("debug","get_last_url.txt"), url, True)
-            r = br.open(url, timeout=100)
+            r = urllib2.urlopen(url)
             info = r.info()
             reply = r.read()
             delay(request_delay)
