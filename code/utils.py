@@ -14,8 +14,8 @@ import time
 import os
 import sys
 import re
-import mechanize
-import cookielib
+#import mechanize
+#import cookielib
 import logging
 import urllib2
 import httplib
@@ -23,7 +23,6 @@ import random
 import HTMLParser
 import json
 import shutil
-import pickle
 import socket
 import string
 

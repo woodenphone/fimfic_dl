@@ -11,7 +11,7 @@
 
 
 import config
-import json
+#import json
 import mysql.connector
 from utils import *
 
@@ -276,6 +276,7 @@ def show_api_structure():
 
 
 def main():
+    return # Code not needed outside debugging
     setup_logging(log_file_path=os.path.join("debug","fimfic-dl-sql-log.txt"))
 
     cnx = mysql.connector.connect(**config.sql_login)

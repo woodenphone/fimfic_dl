@@ -9,7 +9,7 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 
-from memory_profiler import profile# Memory debug
+#from memory_profiler import profile# Memory debug
 
 
 from utils import *# General utility functions
@@ -186,7 +186,6 @@ def save_full_text(connection,root_path,story_id,api_dict,raw_api_json,version,d
     return
 
 
-@profile
 def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     """Download a story and add it to the DB"""
     logging.info("Downloading story "+repr(story_id))
@@ -218,7 +217,6 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     return
 
 
-@profile
 def check_story(connection,root_path,story_id):
     """Process a single story given its ID number."""
     logging.info("Checking story "+repr(story_id))
@@ -247,7 +245,7 @@ def check_story(connection,root_path,story_id):
     save_story(connection,root_path,story_id,api_dict,raw_api_json,new_version_number)
     return
 
-@profile
+
 def check_range(connection,root_path,start_id,finish_id):
     """Process a range of stories"""
     logging.info("Checking range "+repr(start_id)+" to "+repr(finish_id))
