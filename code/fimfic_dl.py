@@ -130,32 +130,12 @@ def save_story_images(connection,root_path,story_id,api_dict,version):
     return
 
 
-@profile
-def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
-    """Download a story and add it to the DB"""
-    logging.info("Downloading story "+repr(story_id))
-    date_modified = api_dict["story"]["date_modified"]
-    # Download full story and save to file
-    # HTML
-    full_story_html_url = "http://www.fimfiction.net/download_story.php?story="+str(story_id)+"&html"
-    full_story_html = get(full_story_html_url)
-    full_story_html_filename = generate_story_filename(date_modified,story_id,version,chapter_number=None,ext="htm")
-    full_story_html_path = generate_full_path(root_path,story_id,version,full_story_html_filename)
-    save_file(full_story_html_path,full_story_html)
-    # TXT
-    full_story_txt_url = "http://www.fimfiction.net/download_story.php?story="+str(story_id)
-    full_story_txt = get(full_story_txt_url)
-    full_story_txt_filename = generate_story_filename(date_modified,story_id,version,chapter_number=None,ext="txt")
-    full_story_txt_path = generate_full_path(root_path,story_id,version,full_story_txt_filename)
-    save_file(full_story_txt_path,full_story_txt)
-    # EPUB
-    full_story_epub_url = "http://www.fimfiction.net/download_epub.php?story="+str(story_id)
-    # Add full story to DB
-    insert_full_text(connection,story_id,version,full_story_text=None,full_story_html=full_story_html)
+def save_chapters(connection,root_path,story_id,api_dict,raw_api_json,version,date_modified):
     # Download chapters
     number_of_chapters = api_dict["story"]["chapter_count"]
     if number_of_chapters == 0:
         logging.error("Zero chapters for this story!")
+        return
     else:
         chapters = api_dict["story"]["chapters"]
         chapter_number = 0
@@ -180,9 +160,51 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
             continue
         # Insert chapter metadata entries
         insert_chapter_metadata(connection,api_dict,story_id,version)
+        logging.debug("Saved chapters")
+    return
+
+
+def save_full_text(connection,root_path,story_id,api_dict,raw_api_json,version,date_modified):
+    # Download full story and save to file
+    # HTML
+    full_story_html_url = "http://www.fimfiction.net/download_story.php?story="+str(story_id)+"&html"
+    full_story_html = get(full_story_html_url)
+    full_story_html_filename = generate_story_filename(date_modified,story_id,version,chapter_number=None,ext="htm")
+    full_story_html_path = generate_full_path(root_path,story_id,version,full_story_html_filename)
+    save_file(full_story_html_path,full_story_html)
+    # TXT
+    full_story_txt_url = "http://www.fimfiction.net/download_story.php?story="+str(story_id)
+    full_story_txt = get(full_story_txt_url)
+    full_story_txt_filename = generate_story_filename(date_modified,story_id,version,chapter_number=None,ext="txt")
+    full_story_txt_path = generate_full_path(root_path,story_id,version,full_story_txt_filename)
+    save_file(full_story_txt_path,full_story_txt)
+    # EPUB
+    full_story_epub_url = "http://www.fimfiction.net/download_epub.php?story="+str(story_id)
+    # Add full story to DB
+    insert_full_text(connection, story_id, version, full_story_text=full_story_txt, full_story_html=full_story_html)
+    logging.debug("Saved full text")
+    return
+
+
+@profile
+def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
+    """Download a story and add it to the DB"""
+    logging.info("Downloading story "+repr(story_id))
+    date_modified = api_dict["story"]["date_modified"]
+
+    # Download full story text to file and DB
+    if config.save_full_text:
+        save_full_text(connection,root_path,story_id,api_dict,raw_api_json,version,date_modified)
+
+    # Download chapters to file and DB
+    if config.save_story_chapters:
+        save_chapters(connection, root_path ,story_id, api_dict, raw_api_json, version, date_modified)
+
     # Save images for story if first version
-    if version == 1:
-        save_story_images(connection,root_path,story_id,api_dict,version)
+    if config.save_images:
+        if version == 1:
+            save_story_images(connection,root_path,story_id,api_dict,version)
+
     # Save API metadata JSON to file
     json_filename = str(story_id)+".v"+str(version)+".json"
     json_path = generate_full_path(root_path,story_id,version,json_filename)
@@ -194,6 +216,7 @@ def save_story(connection,root_path,story_id,api_dict,raw_api_json,version):
     connection.commit()
     logging.info("Saved "+repr(story_id))
     return
+
 
 @profile
 def check_story(connection,root_path,story_id):
